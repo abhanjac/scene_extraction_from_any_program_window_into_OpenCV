@@ -7,6 +7,60 @@ from PIL import ImageGrab
 
 #==============================================================================
 
+class videoRecorder( object ):
+    '''
+    Records the video from the video capture object given as input.
+    '''
+    def __init__( self, videoCaptureObject=None, fps=0 ):
+        # If no fps is specified then set the fps from the input object.
+        self.fps = videoCaptureObject.get( cv2.CAP_PROP_FPS ) if fps==0 else fps      
+        self.fourcc = cv2.VideoWriter_fourcc( 'M','P','E','G' )
+        self.recordStatus = False   # Indicates if recording is occuring or not.
+        # This flag when True, indicates that the recording command is given.
+    
+#------------------------------------------------------------------------------
+
+    def record( self, filePath, name, frame, recordFrame, overwrite=0 ):   
+        # recordFrame is the command to start or stop recording.
+        if recordFrame == ord('r') and self.recordStatus == False: 
+            # Initialize writer and start recording when r is pressed.
+            
+            self.recordStatus = True
+            # Since this flag is True from now onwards, so even if the r is 
+            # pressed again, this if will not be executed and then the writer 
+            # will not be reinintialized.
+            
+            nameOfFile = time.strftime('%Y_%m_%d_%H_%M_%S_') + name + '.avi' if \
+                overwrite == 0 else name + '.avi' 
+            # If overwrite is 0, video files will be created with time stamp so 
+            # that they do not overwrite any previously saved files.
+            
+            nameOfFile = os.path.join( filePath, nameOfFile )
+            
+            row, col = frame.shape[0], frame.shape[1]
+            self.writer = cv2.VideoWriter( nameOfFile, self.fourcc, self.fps, \
+                (col, row) )
+            #print( self.writer.isOpened() )
+            self.writer.write( frame )  # Writing the frame.
+            print( '\nVideo Recording Started...' )
+            
+        elif recordFrame == ord('s') and self.recordStatus == True:
+            # Stop recording on pressing s (if writer was initialized before).
+            self.writer.release()
+            self.recordStatus = False
+            print( '\nStopped Recording Video...' )
+            
+        elif self.recordStatus == True:
+            # recordframe flag is True means that writer is already initialized.
+            self.writer.write( frame )  # Writing the frame.
+        
+        else:
+            pass
+        
+        return self.recordStatus
+
+#==============================================================================
+
 # The target window name should be a global variable, which is updated as per
 # the choice provided by the user from the menu (created later).
 targetWinName = None
@@ -50,7 +104,7 @@ SetForegroundWindow = ctypes.windll.user32.SetForegroundWindow
 # File "C:\ProgramData\Anaconda3\lib\site-packages\PIL\Image.py", line 2539, in _decompression_bomb_check
 #   (pixels, 2 * MAX_IMAGE_PIXELS))
 
-#===============================================================================
+#==============================================================================
 
 def foreachWindow( hwnd, lParam ):
     '''
@@ -146,6 +200,10 @@ if __name__ == '__main__':
 
     # Create display window.
     key = ord('`')
+
+    # Defining the video recorders.
+    vidRec = videoRecorder( fps=30 )
+    vidRecPath = './'
 
     # A flag that indicates whether the target window exists or not.
     targetWinExists = False
@@ -304,6 +362,18 @@ if __name__ == '__main__':
         #cv2.rectangle( img, (20,40), (60,80), (0,255,0), 2 )
         cv2.imshow( displayWinName, img )
 
+        # Press 'r' to record frames as a video.
+        vidRec.record( filePath=vidRecPath, name='video', frame=img, \
+                       recordFrame=(key & 0xFF) ) 
+
+		# IMPORTANT: once the recording has started, video frames will be of 
+        # the same size as the size of the current captured image. The screen 
+        # size of the actual captured window should not be changed, else the 
+        # recording will stop, as the same video cannot have frames of 
+        # different sizes. So if the frame size changes (which will happen as
+        # as the captured image always adjusts to the size of the actual 
+        # window) the video will stop.
+
         #print( time.time() - startTime, 'sec' )
         
 #------------------------------------------------------------------------------
@@ -311,6 +381,5 @@ if __name__ == '__main__':
     cv2.destroyAllWindows()
     
 
-     
             
             
