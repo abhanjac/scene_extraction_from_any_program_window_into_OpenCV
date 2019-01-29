@@ -65,3 +65,18 @@ They are then displayed inside an opencv window as a numpy array. These images c
 
 Provision has been made such that the code will stop automatically if the target window is closed. And once the target window is found, the code using the ctype function **IsIconic** checks if the window is minimized or not and prevents the user from accidentally minimizing it.
 
+# Results:
+The following images are the snaps of the different stages when the code is run.
+
+#### Open script using Spyder:
+The code is run using **Spyder**. Before the code is run, there should be some program windows which are visible either is maximized or minimized form. 
+In this snapshot, a **VLC** player, a **Chrome** window and a folder called **data_3** is visible in minimized form (These are shown by the **RED** arrows).
+
+![](images/1_marked_resized.png)
+
+#### Run the script:
+Once the script is run, the **Menu** window opens. This has the buttons for each available visible window. There may be some windows listed which are not visible as they are run by the windows os in background.
+Since the user has not selected any program yet, so all the buttons are in **Released** position right now.
+
+![](images/2_resized.png)
+
