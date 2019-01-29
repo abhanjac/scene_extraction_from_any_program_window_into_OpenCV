@@ -32,3 +32,13 @@ opencv window.
 * If window is minimized, then the code should automatically maximize the target window.
 * There should be a functionality to record the displayed images as a video as well.
 
+# Current Framework: 
+* Opencv libraries, Windows 10, Python 3.6.3 (Anaconda), Spyder framework (optional).
+* PIL and ctypes packages of Python.
+
+# Overview of the Script:
+This describes the overall process of how this [python script](codes/capture_window.py) make use of the ctype functions to capture the scene inside the target window.
+
+At first a **Menu** window is created as a gui using **tkinter** package that lists all the visible opened window available. There are some windows detected whose name are just empty strings, these are ignored.
+This gui serves as a menu. There is a **button** for each of the windows available. If one of these button is pressed then the corresponding window is maximized and brought to front.
+After this if the menu is closed then this window name is updated in a variable called **targetWinName** indicating that this is the desired window whose display is to be extracted.
