@@ -4,3 +4,7 @@ The objective of this project is to be able to extract the scene or the content 
 **A *Trailer* of Final Result:**
 
 ![](images/display_extration_gif.gif)
+
+[**YouTube Link to Full Video**](https://youtu.be/0WNfKg60dAc)
+
+---
