@@ -56,3 +56,12 @@ This callback function is created using the **ctype** functions called **EnumWin
 Some help forums describing these functions can be found in this [**link**](https://sjohannes.wordpress.com/2012/03/23/win32-python-getting-all-window-titles/).
 
 The foreach_window function accesses all the opened and visible windows (using the ctype function **IsWindowVisible**) with their respective handles and checks if the name of the window matches the targetWinName or not.
+
+If a match is found then the window is first maximized (using the ctype function **OpenIcon**) and then the rectangle which is bounding this window is extracted using **GetWindowRect** function.
+
+These are all stored into the lists (mentioned earlier) and they are accessed by local variables inside the main function inside the while loop from these lists.
+
+They are then displayed inside an opencv window as a numpy array. These images can also be recorded as the frames of a video.
+
+Provision has been made such that the code will stop automatically if the target window is closed. And once the target window is found, the code using the ctype function **IsIconic** checks if the window is minimized or not and prevents the user from accidentally minimizing it.
+
