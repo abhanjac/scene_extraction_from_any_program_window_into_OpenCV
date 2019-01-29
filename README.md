@@ -80,3 +80,76 @@ Since the user has not selected any program yet, so all the buttons are in **Rel
 
 ![](images/2_resized.png)
 
+#### Select a window:
+Once a button is pressed, the corresponding window is maximized and is brought to the front. 
+The button in the menu which is in **Pressed** condition (follow the **RED** arrow in the image), belongs to the selected window.
+This image shows that the **VLC** player is selected.
+
+![](images/lion_king_1_marked_resized.png)
+
+#### A change in selection:
+If the user selects a different window now by pressing a different button, then that corresponding window will now be in the foreground above the previously selected window.
+In the following image, the **Chrome** window is selected (indicated by the **RED** arrow), so it comes to the foreground in front of the previously selected **VLC** player (shown by the **BLUE** arrow).
+
+![](images/chrome_1_marked_resized.png)
+
+In this image the **data_3** folder window is selected (indicated by the **RED** arrow), and so it comes to the foreground. 
+The **VLC** and **Chrome** windows (indicated by the **BLUE** arrows) goes to the background.
+
+![](images/folder_1_marked_resized.png)
+
+#### Extracting the display:
+Now again we select back the **VLC** player window (indicated by the **RED** arrow). 
+And after that the **Menu** gui is closed (using the cross mark at the top right corner, indicated by the **BLUE** arrow).
+
+![](images/lion_king_2_marked_resized.png)
+
+Immediately, the display inside the selected **VLC** player window is captured and displayed by the opencv window called **Display** (this Display window is indicated by the **RED** arrow and rectangle). 
+These scenes are extracted in real time. Every scene of the VLC player window is captured and displayed in real time in the opencv **Display** window.
+
+![](images/lion_king_3_marked_resized.png)
+
+#### Recording the images as a video:
+If the key **'r'** is pressed on the keyboard, then the images which are displayed in this opencv window will be recorded as a video and the recording will stop on pressing the key **'s'**.
+This video will be saved in the location specified in the variable **vidRecPath**. 
+The video recording is done with the help of the class **videoRecorder**. 
+
+However, there is a small catch here, once the recording has started, video frames will be of the same size as the size of the current captured image. 
+The screen size of the actual captured window should not be changed, else the recording will stop, as the same video cannot have frames of different sizes. 
+So if the frame size changes (which will happen as the captured image always adjusts to the size of the actual program window) the video will stop.
+
+
+## Video:
+* A video of the real time operation of this code is available in this [**video**](video)
+
+* This video is also uploaded to YouTube at this [**link**](https://youtu.be/0WNfKg60dAc)
+
+* The glimpse of the operation is of this code is also shown in the following gif.
+
+![](images/display_extration_gif.gif)
+
+# Comments:
+This script has only the access to the pixel coordinates of the rectangle of the target window, and so it shows whatever is being displayed in the region of the screen inside that rectangle. But if another window is blocking this region or is in the foreground of the target window, then this code will start showing the part of this foreground window inside that rectangle.
+It really depends on the user to take care of this.
+
+The code runs in real time just like the original program. But if the size of the target window is too large, for example the entire screen is specified as the target window, then the process may run at a slower speed. But if the target window is specified, then the code only takes into account that part of the screen and hence the code runs faster.
+
+Also, to have the opencv window display the same content within a window of the same size as the rectangle of the target window, some of the display settings need to be altered. 
+These following steps specifies that:
+
+* You have to disable the high dpi settings for this python application (spyder python in this case). 
+* Go to the **installed directory of this application -> right click on the shortcut -> go to properties -> Compatibility -> Change high DPI settings -> Check the box for 'override high DPI scaling behavior' -> in the dropdown select 'application'**. (These settings are tested for windows 10).
+* This is a help [link](https://stackoverflow.com/questions/49268120/why-cannot-imagegrab-grab-capture-the-whole-screen) for this.
+
+This same feature can also be implemented in Ubuntu using the **pyscreenshot** and **Xlib** package. But the pyscreenshot package is not very fast in grabbing the screen content.
+
+# Possible Spin-offs from this Code:
+* This code can be modified to create a function which will take the name of the target window as an argument and record the display.
+* Image processing can be applied to the extracted display (or to a specific region of the extracted display) as well.
+
+# References:
+Some good links and websites to find the ctype functions and their applications are given below:
+
+* [**Link1**](https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-getwindowrect), [**Link2**](https://docs.python.org/3/library/ctypes.html), [**Link3**](https://programtalk.com/python-examples/ctypes.windll.user32.GetWindowRect/), [**Link4**](https://stackoverflow.com/questions/49268120/why-cannot-imagegrab-grab-capture-the-whole-screen)
+
+
