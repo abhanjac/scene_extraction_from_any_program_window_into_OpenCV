@@ -22,3 +22,6 @@ The motivation of this project comes from various sources. Some of them are as f
 * Taking screenshot of only the display inside an opened window and not anything else visible in the neighboring region in the desktop.
 * Suppose the user wants to do some kind of image processing on the scenes shown inside a program window.
 
+These above aspects can be resolved if there is a code or a script such that the user will specify the name of the desired window (whose scene is to be extracted) and the code will display the scene as a numpy array in an 
+opencv window.
+
