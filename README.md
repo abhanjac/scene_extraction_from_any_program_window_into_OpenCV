@@ -8,3 +8,7 @@ The objective of this project is to be able to extract the scene or the content 
 [**YouTube Link to Full Video**](https://youtu.be/0WNfKg60dAc)
 
 ---
+
+In other words, anything that is shown inside the display window of a program, should be visible inside an opencv window as a numpy array.
+
+The motivation of this project comes from various sources. Some of them are as follows: 
