@@ -25,3 +25,10 @@ The motivation of this project comes from various sources. Some of them are as f
 These above aspects can be resolved if there is a code or a script such that the user will specify the name of the desired window (whose scene is to be extracted) and the code will display the scene as a numpy array in an 
 opencv window.
 
+# Requirements: 
+* This application is should be created to run of a **Windows 10** machine.
+* The user can specify the name of any window that is currently running.
+* If the window is not running, there should be a graceful exit.
+* If window is minimized, then the code should automatically maximize the target window.
+* There should be a functionality to record the displayed images as a video as well.
+
